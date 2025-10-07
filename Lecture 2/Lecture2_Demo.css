@@ -1,0 +1,30 @@
+/* Basic styling for centering and fonts */
+body {
+    font-family: sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #f4f4f4; /* Default light mode background */
+    color: #333; /* Default light mode text color */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+/* The magic class that JavaScript will toggle */
+body.dark-mode {
+    background-color: #333; /* Dark mode background */
+    color: #f4f4f4; /* Dark mode text color */
+}
