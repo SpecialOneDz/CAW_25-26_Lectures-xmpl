@@ -1,6 +1,8 @@
+//=====================================================================================
+/* Part 1 : The Building Blocks of Modern Data */
+//=====================================================================================
+/* ### Nested data structures ###*/
 
-/* 1.Variable Declarations */
-/*
 for (var i = 0; i < 5; i++) {
   // ... loop runs 5 times
 }
@@ -19,10 +21,12 @@ API_KEY = "newkey456"; // Uncaught TypeError: Assignment to constant variable.
 const CONFIG = { theme: 'dark' };
 CONFIG.theme = 'light'; // This IS allowed!
 CONFIG.user = 'admin';  // This IS also allowed!
-*/
+
 
 //=====================================================================================
 /* ### Nested data structures ###*/
+/* 1. Object Destructuring */
+
 var instructorData = {
     name: "Elie",
     additionalData: {
@@ -52,4 +56,98 @@ const { city, state } = instructorData.additionalData.moreDetails.hometown;
 console.log(`${name} is from ${city}, ${state}.`);
 //Provide a fallback if a property doesn't exist.
 const { country = "USA" } = instructorData.additionalData.moreDetails.hometown;
-//console.log(country); 
+console.log(country); 
+
+
+/* 2. Array Destructuring */
+const citiesLivedIn = ["Seattle", "Providence", "New York"];
+// The old way
+const firstCity = citiesLivedIn[0];
+const secondCity = citiesLivedIn[1];
+// The modern way
+const [first, second, third] = citiesLivedIn;
+
+console.log("The first city is " + first); 
+console.log("The second city is " + second); 
+// You can even skip elements
+const [,, last] = citiesLivedIn;
+console.log("The last city is " + last); 
+
+
+/* 3. Spread (...)*/
+const frontEnd = ['React', 'Vue', 'Angular'];
+const backEnd = ['Node', 'Django', 'Laravel'];
+// Combining arrays
+const fullStack = [...frontEnd, ...backEnd]; // Result: ['React', 'Vue', 'Angular', 'Node', 'Django', 'Laravel']
+console.log(fullStack);
+
+/* 3. Rest (...) */
+function sum(...numbers) {  // This function can accept any number of arguments
+  return numbers.reduce((total, num) => total + num, 0);
+}
+sum(1, 2);          // Result: 3
+sum(10, 20, 30, 40); // Result: 100
+sum();              // Result: 0
+
+
+//=====================================================================================
+/* Part 2: Modern Functional Programming */
+//=====================================================================================
+/* 1. Arrow Functions */
+// Before
+arr.map(function(val) {
+  return val * 2;
+});
+// After (ES6)
+arr.map(val => val * 2);
+
+/* 2. This keyword */
+const user = {
+  name: "Adil",
+  courses: ["CAW", "Algorithms", "Databases"],
+  printCourses: function() {
+    console.log(`Courses for ${this.name}:`); // Here, 'this' is the 'user' object. Correct.
+
+    this.courses.forEach(function(course) {
+      // BUG! Inside this new function, 'this' is NOT the 'user' object.
+      // In this context, 'this' is the global window object.
+      console.log(`${this.name} is taking ${course}`);
+    });
+  }
+};
+user.printCourses();
+// Console Output:
+// Courses for Adil:
+// undefined is taking CAW
+// undefined is taking Algorithms
+// undefined is taking Databases
+
+const user = {
+  name: "Adil",
+  courses: ["CAW", "Algorithms", "Databases"],
+  printCourses: function() {
+    console.log(`Courses for ${this.name}:`); // 'this' is the user object.
+
+    this.courses.forEach(course => {
+      // NO BUG! The arrow function inherits 'this' from its parent, printCourses.
+      // So, 'this' correctly refers to the 'user' object.
+      console.log(`${this.name} is taking ${course}`);
+    });
+  }
+};
+user.printCourses();
+// Console Output:
+// Courses for Adil:
+// Adil is taking CAW
+// Adil is taking Algorithms
+// Adil is taking Databases
+
+
+/* 2. Higher-Order Functions */
+
+const myButton = document.querySelector('#myButton');
+// addEventListener' is the Higher-Order Function
+// The arrow function is the Callback
+myButton.addEventListener('click', () => {
+  console.log('Button was clicked!');
+});
