@@ -1,0 +1,55 @@
+
+/* 1.Variable Declarations */
+/*
+for (var i = 0; i < 5; i++) {
+  // ... loop runs 5 times
+}
+console.log(i); // What is the value of i here?
+// Output: 
+
+for (let j = 0; j < 5; j++) {
+  // ... loop runs 5 times
+}
+console.log(j); // What is the value of j here?
+// Output: ReferenceError: j is not defined
+
+const API_KEY = "abc123xyz";
+API_KEY = "newkey456"; // Uncaught TypeError: Assignment to constant variable.
+
+const CONFIG = { theme: 'dark' };
+CONFIG.theme = 'light'; // This IS allowed!
+CONFIG.user = 'admin';  // This IS also allowed!
+*/
+
+//=====================================================================================
+/* ### Nested data structures ###*/
+var instructorData = {
+    name: "Elie",
+    additionalData: {
+     instructor: true,
+     favoriteHobbies: ["Playing Chess", "Tennis", "Coding"],
+     moreDetails: {
+      basketballTeam: "NYJ",
+      numberOfSiblings: 3,
+      isYoungest: true,
+      hometown: {
+       city: "West Orange",
+       state: "NJ",
+      },
+    citiesLivedIn: ["Seattle", "Providence", "New York"]
+     }
+    }
+   };
+instructorData.name; // "Elie"
+instructorData.additionalData.instructor; // true
+instructorData.additionalData.favoriteHobbies[2]; // "Coding"
+instructorData.additionalData.moreDetails.basketballTeam; // "NYJ"
+instructorData.additionalData.moreDetails.hometown.state; // "NJ"
+instructorData.additionalData.moreDetails.citiesLivedIn[1]; //"Providence"
+// Object Destructuring 
+const { name } = instructorData;
+const { city, state } = instructorData.additionalData.moreDetails.hometown;
+console.log(`${name} is from ${city}, ${state}.`);
+//Provide a fallback if a property doesn't exist.
+const { country = "USA" } = instructorData.additionalData.moreDetails.hometown;
+//console.log(country); 
